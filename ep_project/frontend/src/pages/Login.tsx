@@ -33,11 +33,33 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-                <div className="text-center mb-8">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100"
+            style={{
+                backgroundImage: 'url("/nnrg-campus.jpg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundBlendMode: 'overlay',
+                backgroundColor: 'rgba(255, 255, 255, 0.9)'
+            }}>
+            <div className="bg-white/95 backdrop-blur-sm p-8 rounded-lg shadow-2xl w-full max-w-md border border-gray-200">
+                {/* Logo */}
+                <div className="text-center mb-6">
+                    <div className="flex justify-center mb-4">
+                        <img
+                            src="/nnrg-logo.png"
+                            alt="NNRG Logo"
+                            className="h-20 w-auto"
+                            onError={(e) => {
+                                // Fallback if image doesn't load
+                                e.currentTarget.style.display = 'none';
+                            }}
+                        />
+                    </div>
                     <h1 className="text-3xl font-bold text-gray-800">Examination Portal</h1>
-                    <p className="text-gray-600 mt-2">Sign in to your account</p>
+                    <p className="text-gray-600 mt-2">SAMPLE Institutions</p>
+                    <p className="text-sm text-gray-500 mt-1">
+                        SAMPLE Group of Institutions
+                    </p>
                 </div>
 
                 {error && (
@@ -49,14 +71,14 @@ const Login: React.FC = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                            Email
+                            Email Address
                         </label>
                         <input
                             id="email"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                             placeholder="Enter your email"
                             required
                         />
@@ -71,7 +93,7 @@ const Login: React.FC = () => {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                             placeholder="Enter your password"
                             required
                         />
@@ -80,15 +102,20 @@ const Login: React.FC = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+                        className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 font-semibold transition-colors"
                     >
                         {loading ? 'Signing in...' : 'Sign In'}
                     </button>
                 </form>
 
-                <p className="text-center text-gray-600 text-sm mt-6">
-                    Engineering College Examination System
-                </p>
+                <div className="mt-6 text-center">
+                    <p className="text-gray-600 text-sm">
+                        Engineering • Pharmacy • MBA
+                    </p>
+                    <p className="text-gray-500 text-xs mt-2">
+                        © 2024 SAMPLE Institutions. All rights reserved.
+                    </p>
+                </div>
             </div>
         </div>
     );

@@ -1,19 +1,54 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminDashboard from './pages/Admin/Dashboard';
+import StudentDashboard from './pages/Student/Dashboard';
+import ExaminerDashboard from './pages/Examiner/Dashboard';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Navigate to="/login" />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* Placeholder routes - will build these next */}
-        <Route path="/admin/dashboard" element={<div>Admin Dashboard - Coming Soon</div>} />
-        <Route path="/student/dashboard" element={<div>Student Dashboard - Coming Soon</div>} />
-        <Route path="/examiner/dashboard" element={<div>Examiner Dashboard - Coming Soon</div>} />
-      </Routes>
-    </Router>
+          {/* Admin Routes */}
+          <Route
+            path="/admin/*"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Student Routes */}
+          <Route
+            path="/student/*"
+            element={
+              <ProtectedRoute allowedRoles={['student']}>
+                <StudentDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Examiner Routes */}
+          <Route
+            path="/examiner/*"
+            element={
+              <ProtectedRoute allowedRoles={['examiner']}>
+                <ExaminerDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Unauthorized page */}
+          <Route path="/unauthorized" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl">Unauthorized Access</h1></div>} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
